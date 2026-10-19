@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <script>
+      // Gracefully mock Vite dev HMR WebSocket connection in Cloud Run / iFrame proxy environments
+      (function () {
+        var OriginalWebSocket = window.WebSocket;
+        if (!OriginalWebSocket) return;
+        window.WebSocket = function (url, protocols) {
+          if (protocols === 'vite-hmr' || (typeof url === 'string' && (url.includes('ais-dev') || url.includes('token=')))) {
+            return {
+              CONNECTING: 0,
+              OPEN: 1,
+              CLOSING: 2,
+              CLOSED: 3,
+              readyState: 1,
+              send: function () {},
+              close: function () {},
+              addEventListener: function (event, handler) {
+                if (event === 'open') {
+                  setTimeout(handler, 0);
+                }
+              },
+              removeEventListener: function () {},
+              dispatchEvent: function () { return true; }
+            };
+          }
+          return new OriginalWebSocket(url, protocols);
+        };
+        window.WebSocket.prototype = OriginalWebSocket.prototype;
+        window.WebSocket.CONNECTING = 0;
+        window.WebSocket.OPEN = 1;
+        window.WebSocket.CLOSING = 2;
+        window.WebSocket.CLOSED = 3;
+
+        window.addEventListener('error', function (event) {
+          if (event && (event.message?.includes('WebSocket') || event.error?.message?.includes('WebSocket'))) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+          if (event && event.reason?.message?.includes('WebSocket')) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        });
+      })();
+    </script>
+    <title>Mohammad El-Menshawy’s English Question Bank | Super Goal, Top Stars &amp; Pioneer</title>
+    <meta name="description" content="Practice English online with Mohammad El-Menshawy’s interactive question bank. Explore Super Goal, Top Stars and Pioneer quizzes, grammar practice, vocabulary and student revision activities." />
+    <link rel="canonical" href="https://mohammad-el-menshawy-s-question-bank.ai.studio/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohammad-el-menshawy-s-question-bank.ai.studio/" />
+    <meta property="og:title" content="Mohammad El-Menshawy’s English Question Bank | Super Goal, Top Stars &amp; Pioneer" />
+    <meta property="og:description" content="Practice English online with Mohammad El-Menshawy’s interactive question bank. Explore Super Goal, Top Stars and Pioneer quizzes, grammar practice, vocabulary and student revision activities." />
+    <meta property="og:image" content="https://mohammad-el-menshawy-s-question-bank.ai.studio/pwa-512x512.png" />
+    <meta property="og:site_name" content="Mohammad El-Menshawy’s English Question Bank" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_SA" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://mohammad-el-menshawy-s-question-bank.ai.studio/" />
+    <meta name="twitter:title" content="Mohammad El-Menshawy’s English Question Bank | Super Goal, Top Stars &amp; Pioneer" />
+    <meta name="twitter:description" content="Practice English online with Mohammad El-Menshawy’s interactive question bank. Explore Super Goal, Top Stars and Pioneer quizzes, grammar practice, vocabulary and student revision activities." />
+    <meta name="twitter:image" content="https://mohammad-el-menshawy-s-question-bank.ai.studio/pwa-512x512.png" />
+    
+    <!-- PWA & Mobile Web Support -->
+    <meta name="theme-color" content="#417178" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="EngliMensh" />
+    <meta name="application-name" content="EngliMensh" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://mohammad-el-menshawy-s-question-bank.ai.studio/#website",
+          "url": "https://mohammad-el-menshawy-s-question-bank.ai.studio/",
+          "name": "Mohammad El-Menshawy’s English Question Bank",
+          "description": "Practice English online with Mohammad El-Menshawy’s interactive question bank. Explore Super Goal, Top Stars and Pioneer quizzes, grammar practice, vocabulary and student revision activities.",
+          "inLanguage": ["en", "ar"]
+        },
+        {
+          "@type": "EducationalResource",
+          "@id": "https://mohammad-el-menshawy-s-question-bank.ai.studio/#resource",
+          "url": "https://mohammad-el-menshawy-s-question-bank.ai.studio/",
+          "name": "Interactive English Question Bank",
+          "description": "Online English practice and revision for Super Goal, Top Stars and Pioneer learners, prepared by Mohammad El-Menshawy. Features interactive quizzes, listening audio tracks, reading comprehension passages, grammar drills, vocabulary exercises, and STEP test prep.",
+          "educationalUse": "Practice, Assessment, Revision",
+          "learningResourceType": "Assessment, Quiz, Drill and Practice",
+          "author": {
+            "@type": "Person",
+            "name": "Mohammad El-Menshawy"
+          },
+          "inLanguage": ["en", "ar"]
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-amber-400 selection:text-slate-950">
+    <div id="root">
+      <!-- Semantic visible fallback rendered for search engines and pre-hydration visitors -->
+      <noscript>
+        <main style="max-width: 960px; margin: 2rem auto; padding: 1.5rem; font-family: system-ui, -apple-system, sans-serif; color: #f8fafc; line-height: 1.6;">
+          <h1 style="font-size: 2rem; font-weight: 900; color: #fbbf24; margin-bottom: 0.75rem;">Interactive English Question Bank</h1>
+          <p style="font-size: 1.125rem; color: #e2e8f0; margin-bottom: 1.5rem;">
+            Online English practice and revision for Super Goal, Top Stars and Pioneer learners, prepared by Mohammad El-Menshawy.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <span style="background: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #334155;">Super Goal 1 &amp; 2 (Intermediate)</span>
+            <span style="background: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #334155;">Top Stars 6 (Elementary 6)</span>
+            <span style="background: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #334155;">Pioneer 1 &amp; 2 (Intermediate)</span>
+            <span style="background: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #334155;">Mega Goal 3 (Secondary 3)</span>
+            <span style="background: #1e293b; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #334155;">STEP (Standardized Test of English Proficiency)</span>
+          </div>
+        </main>
+      </noscript>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

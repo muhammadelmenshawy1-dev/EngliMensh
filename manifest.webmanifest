@@ -1,0 +1,34 @@
+{
+  "id": "com.englimensh.app",
+  "name": "remix-remix-remix-mohammad-el-menshawy-s-question-9265.ai",
+  "short_name": "EngliMensh",
+  "description": "It's a learning application that helps Students from KSA learn easier and faster.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "dir": "ltr",
+  "theme_color": "#417178",
+  "background_color": "#2f616e",
+  "categories": ["education", "books"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
